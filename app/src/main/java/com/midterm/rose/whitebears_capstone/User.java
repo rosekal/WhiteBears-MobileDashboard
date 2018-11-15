@@ -1,7 +1,7 @@
 package com.midterm.rose.whitebears_capstone;
 
 public class User {
-    private String firstName, lastName, username, password, fullName, email, role;
+    private String firstName, lastName, username, password, email, role;
 
     private boolean enabled;
 
@@ -17,7 +17,6 @@ public class User {
         this.lastName = lastName;
         this.username = username;
         this.password = password;
-        this.fullName = fullName;
         this.email = email;
         this.role = role;
         this.enabled = enabled;
@@ -57,11 +56,7 @@ public class User {
     }
 
     public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+        return firstName + " " + lastName;
     }
 
     public String getEmail() {

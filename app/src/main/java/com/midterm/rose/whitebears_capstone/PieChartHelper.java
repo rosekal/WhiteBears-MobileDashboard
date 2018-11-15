@@ -22,10 +22,6 @@ public class PieChartHelper {
 
         PieChartData pieChartData = new PieChartData(pieData);
 
-        pieChartData.setHasLabels(true).setValueLabelTextSize(14);
-
-        pieChartData.setHasLabelsOutside(true);
-
         pieChartData.setHasCenterCircle(true)
                 .setCenterText1("Tasks Overview")
                 .setCenterText1FontSize(15)
