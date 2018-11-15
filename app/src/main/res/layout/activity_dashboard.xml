@@ -9,8 +9,8 @@
 
     <lecho.lib.hellocharts.view.PieChartView
         android:id="@+id/chart"
-        android:layout_width="196dp"
-        android:layout_height="203dp"
+        android:layout_width="172dp"
+        android:layout_height="179dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,85 +18,107 @@
 
     <View
         android:id="@+id/red_rectangle"
-        android:layout_width="40"
-        android:layout_height="15"
+        android:layout_width="40dp"
+        android:layout_height="15dp"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
         android:background="#f00"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="255dp"
-        tools:layout_editor_absoluteY="67dp" />
+        app:layout_constraintStart_toEndOf="@+id/chart"
+        app:layout_constraintTop_toBottomOf="@+id/blue_rectangle" />
 
     <View
         android:id="@+id/blue_rectangle"
-        android:layout_width="40"
-        android:layout_height="15"
+        android:layout_width="40dp"
+        android:layout_height="15dp"
         android:layout_below="@+id/yellow_rectangle"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
         android:background="#00f"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="255dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintStart_toEndOf="@+id/chart"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/green_rectangle"
-        android:layout_width="40"
-        android:layout_height="15"
+        android:layout_width="40dp"
+        android:layout_height="15dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
         android:background="#0f0"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="255dp"
-        tools:layout_editor_absoluteY="131dp" />
+        app:layout_constraintStart_toEndOf="@+id/chart"
+        app:layout_constraintTop_toBottomOf="@+id/red_rectangle" />
 
     <View
         android:id="@+id/yellow_rectangle"
-        android:layout_width="40"
-        android:layout_height="15"
+        android:layout_width="40dp"
+        android:layout_height="15dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
         android:background="#ff0"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="255dp"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintStart_toEndOf="@+id/chart"
+        app:layout_constraintTop_toBottomOf="@+id/green_rectangle" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="23dp"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
         android:text="@string/completed_on_time"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="260dp"
-        tools:layout_editor_absoluteY="162dp" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/green_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/green_rectangle" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="19dp"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
         android:text="@string/overdue"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="306dp"
-        tools:layout_editor_absoluteY="82dp" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/red_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/red_rectangle" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="118dp"
-        android:layout_height="wrap_content"
+        android:layout_width="111dp"
+        android:layout_height="22dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/red_rectangle"
+        android:layout_marginStart="8dp"
         android:text="@string/completed_overdue"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="247dp" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/yellow_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/yellow_rectangle" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
         android:text="@string/on_schedule"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="299dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/blue_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/blue_rectangle" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="381dp"
+        android:layout_height="284dp"
+        android:layout_marginEnd="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

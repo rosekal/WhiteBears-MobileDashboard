@@ -10,7 +10,7 @@ public class Task {
 
     private Date dueDate, startDate, completedDate;
 
-    private ArrayList<User> users;
+    private ArrayList<User> users = new ArrayList<>();
 
     public static int onSchedule = 0, overdue = 0, completedOnTime = 0, completedOverdue = 0;
 
@@ -186,5 +186,9 @@ public class Task {
                     break;
             }
         }
+    }
+
+    public void addUser(User user){
+        this.users.add(user);
     }
 }
