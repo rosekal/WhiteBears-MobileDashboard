@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WhiteBears - Capstone</string>
+    <string name="overdue">Overdue</string>
+    <string name="completed_on_time">Completed On Time</string>
+    <string name="completed_overdue">Completed Overdue</string>
+    <string name="on_schedule">On Schedule</string>
+</resources>

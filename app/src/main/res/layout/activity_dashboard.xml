@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardActivity">
+
+
+    <lecho.lib.hellocharts.view.PieChartView
+        android:id="@+id/chart"
+        android:layout_width="196dp"
+        android:layout_height="203dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/red_rectangle"
+        android:layout_width="40"
+        android:layout_height="15"
+        android:layout_alignParentTop="true"
+        android:background="#f00"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="255dp"
+        tools:layout_editor_absoluteY="67dp" />
+
+    <View
+        android:id="@+id/blue_rectangle"
+        android:layout_width="40"
+        android:layout_height="15"
+        android:layout_below="@+id/yellow_rectangle"
+        android:background="#00f"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="255dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <View
+        android:id="@+id/green_rectangle"
+        android:layout_width="40"
+        android:layout_height="15"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView"
+        android:background="#0f0"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="255dp"
+        tools:layout_editor_absoluteY="131dp" />
+
+    <View
+        android:id="@+id/yellow_rectangle"
+        android:layout_width="40"
+        android:layout_height="15"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="#ff0"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="255dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/completed_on_time"
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="260dp"
+        tools:layout_editor_absoluteY="162dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/overdue"
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="306dp"
+        tools:layout_editor_absoluteY="82dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/red_rectangle"
+        android:text="@string/completed_overdue"
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="247dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/on_schedule"
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="299dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+</android.support.constraint.ConstraintLayout>
