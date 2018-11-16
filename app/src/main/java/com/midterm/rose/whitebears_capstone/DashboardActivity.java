@@ -20,7 +20,7 @@ public class DashboardActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private TaskListAdapter mAdapter;
 
-    RadioGroup rp;
+    RadioGroup rg;
 
     ArrayList<Project> allProjects = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         generateMultipleProjects();
-        rp = findViewById(R.id.projectGroup);
+        rg = findViewById(R.id.projectGroup);
 
         PieChartHelper.pieChartView = findViewById(R.id.chart);
 
@@ -38,17 +38,22 @@ public class DashboardActivity extends AppCompatActivity {
 
         ArrayList<Task> allTasks = new ArrayList<>();
 
-        for(Project p : allProjects) {
-            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, 5, 50, 5);
+        RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 5, 50, 5);
 
-            RadioButton rb = new RadioButton(this);
+        RadioButton rb = new RadioButton(this);
+        rb.setText("All");
+        rb.setLayoutParams(params);
+        rg.addView(rb);
+
+        for(Project p : allProjects) {
+            rb = new RadioButton(this);
             rb.setText(p.getTitle());
 
             rb.setLayoutParams(params);
-            rp.addView(rb);
+            rg.addView(rb);
 
-            rp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+            rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
             {
                 public void onCheckedChanged(RadioGroup group, int checkedId){
                     RadioButton checkedRadioButton = group.findViewById(checkedId);
@@ -62,12 +67,14 @@ public class DashboardActivity extends AppCompatActivity {
                 allTasks.add(t);
         }
 
+        updateProject("All");
+
 
         mAdapter = new TaskListAdapter(this, allTasks);
-
         mRecyclerView.setAdapter(mAdapter);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ((RadioButton) rg.getChildAt(0)).setChecked(true);
     }
 
     private void generateMultipleProjects(){
