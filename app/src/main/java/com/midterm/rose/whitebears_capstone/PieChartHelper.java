@@ -12,15 +12,17 @@ import lecho.lib.hellocharts.view.PieChartView;
 public class PieChartHelper {
     public static PieChartView pieChartView;
 
-    public static void populatePieChart(ArrayList<Task> tasks){
+    public static void populatePieChart(int completedOnTime, int completedOverdue, int overdue, int onSchedule){
 
         List<SliceValue> pieData = new ArrayList<>();
-        pieData.add(new SliceValue(Task.completedOnTime, Color.GREEN).setLabel("Completed On Time"));
-        pieData.add(new SliceValue(Task.completedOverdue, Color.YELLOW).setLabel(" Completed Overdue"));
-        pieData.add(new SliceValue(Task.overdue, Color.RED).setLabel("Overdue"));
-        pieData.add(new SliceValue(Task.onSchedule, Color.BLUE).setLabel("On Schedule"));
+        pieData.add(new SliceValue(completedOnTime, Color.rgb(158, 255, 166)).setLabel(completedOnTime+""));
+        pieData.add(new SliceValue(completedOverdue, Color.rgb(255, 226, 158)).setLabel(completedOverdue+""));
+        pieData.add(new SliceValue(overdue, Color.rgb(255, 158, 158)).setLabel(overdue+""));
+        pieData.add(new SliceValue(onSchedule, Color.rgb(158, 158, 255)).setLabel(onSchedule+""));
 
         PieChartData pieChartData = new PieChartData(pieData);
+
+        pieChartData.setHasLabels(true);
 
         pieChartData.setHasCenterCircle(true)
                 .setCenterText1("Tasks Overview")

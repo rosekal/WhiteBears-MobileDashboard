@@ -1,5 +1,6 @@
 package com.midterm.rose.whitebears_capstone;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,8 +12,6 @@ public class Task {
     private Date dueDate, startDate, completedDate;
 
     private ArrayList<User> users = new ArrayList<>();
-
-    public static int onSchedule = 0, overdue = 0, completedOnTime = 0, completedOverdue = 0;
 
     public Task(int taskId, int workload, int projectId, String priority, String title, String description, String status, String projectName, Date dueDate, Date startDate, Date completedDate) {
         this.taskId = taskId;
@@ -106,7 +105,6 @@ public class Task {
     }
 
     public void setStatus(String status) {
-        incrementStatusCounter(status, this.status);
         this.status = status;
     }
 
@@ -150,42 +148,19 @@ public class Task {
         this.users = users;
     }
 
-    public void incrementStatusCounter(String newStatus, String oldStatus){
-        switch(newStatus){
-            case "On Schedule":
-                onSchedule++;
-                break;
+    public String getFormattedDueDate(){
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        return df.format(dueDate);
+    }
 
-            case "Overdue":
-                overdue++;
-                break;
+    public String getFormattedStartDate(){
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        return df.format(startDate);
+    }
 
-            case "Completed (On Time)":
-                completedOnTime++;
-                break;
-            case "Completed (Overdue)":
-                completedOverdue++;
-                break;
-        }
-
-        if(oldStatus != null) {
-            switch (oldStatus) {
-                case "On Schedule":
-                    onSchedule--;
-                    break;
-
-                case "Overdue":
-                    overdue--;
-                    break;
-
-                case "Completed (On Time)":
-                    completedOnTime--;
-                    break;
-                case "Completed (Overdue)":
-                    completedOverdue--;
-                    break;
-            }
-        }
+    public String getFormattedCompletedDate(){
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        return df.format(completedDate);
     }
 
     public void addUser(User user){
