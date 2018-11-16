@@ -7,7 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class TaskListAdapter
@@ -22,6 +28,8 @@ public class TaskListAdapter
         public final TextView statusTextView;
         public final TextView assigneesTextView;
         public final TextView dueDateTextView;
+        public final TextView projectTextView;
+
         final TaskListAdapter mAdapter;
 
         public TaskViewHolder(View itemView, TaskListAdapter adapter) {
@@ -30,6 +38,7 @@ public class TaskListAdapter
             statusTextView = (TextView) itemView.findViewById(R.id.status);
             assigneesTextView = (TextView) itemView.findViewById(R.id.assignees);
             dueDateTextView = (TextView) itemView.findViewById(R.id.duedate);
+            projectTextView = (TextView) itemView.findViewById(R.id.project);
             this.mAdapter = adapter;
         }
     }
@@ -63,10 +72,11 @@ public class TaskListAdapter
             }
         }
 
-        holder.titleTextView.setText(currentTask.getTitle());
-        holder.statusTextView.setText(currentTask.getStatus());
-        holder.assigneesTextView.setText(sb.toString());
-        holder.dueDateTextView.setText(currentTask.getDueDate().toString());
+        holder.titleTextView.setText("Title: " + currentTask.getTitle());
+        holder.statusTextView.setText("Status: " + currentTask.getStatus());
+        holder.assigneesTextView.setText("Assignees: " + sb.toString());
+        holder.dueDateTextView.setText("Due Date: " + currentTask.getFormattedDueDate());
+        holder.projectTextView.setText("Project: " + currentTask.getProjectName());
     }
 
     @Override
