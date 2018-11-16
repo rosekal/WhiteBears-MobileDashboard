@@ -69,11 +69,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         updateProject("All");
 
-
-        mAdapter = new TaskListAdapter(this, allTasks);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         ((RadioButton) rg.getChildAt(0)).setChecked(true);
     }
 
@@ -176,13 +171,16 @@ public class DashboardActivity extends AppCompatActivity {
         overdue = 0;
         onSchedule = 0;
 
+        ArrayList<Task> allTasks = new ArrayList<>();
         if(projectName.equals("All")) {
             for (Project project : allProjects) {
+                allTasks.addAll(project.getTasks());
                 incrementStatusCounters(project.getTasks());
             }
         }else {
             for (Project project : allProjects) {
                 if (project.getTitle().equals(projectName)) {
+                    allTasks.addAll(project.getTasks());
                     incrementStatusCounters(project.getTasks());
                     break;
                 }
@@ -190,6 +188,10 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         PieChartHelper.populatePieChart(completedOnTime, completedOverdue, overdue, onSchedule);
+
+        mAdapter = new TaskListAdapter(this, allTasks);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void incrementStatusCounters(ArrayList<Task> tasks){
