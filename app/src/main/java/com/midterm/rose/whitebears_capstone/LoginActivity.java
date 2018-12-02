@@ -9,7 +9,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements HttpCall.AsyncResponse{
+
+    String username;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,15 +21,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLogin(View view){
-        String username = ((EditText) findViewById(R.id.edtxtUsername)).getText().toString();
-        String password = ((EditText) findViewById(R.id.edtxtPassword)).getText().toString();
+        username = ((EditText) findViewById(R.id.edtxtUsername)).getText().toString();
+        password = ((EditText) findViewById(R.id.edtxtPassword)).getText().toString();
+        HttpCall hc = new HttpCall();
+        hc.delegate = this;
+        hc.execute("Login", username, password);
 
-        if(verifyLogin(username, password)){
-            Intent dashboard = new Intent(this, DashboardActivity.class);
-            startActivity(dashboard);
-        }else{
-            (findViewById(R.id.txtMessage)).setVisibility(View.VISIBLE);
-        }
     }
 
     private boolean verifyLogin(String username, String password) {
@@ -34,5 +34,16 @@ public class LoginActivity extends AppCompatActivity {
             return false;
 
         return true;
+    }
+
+    @Override
+    public void processFinish(String output) {
+        if(output.equals("success")){
+            Intent dashboard = new Intent(this, DashboardActivity.class);
+            dashboard.putExtra("userName", username);
+            startActivity(dashboard);
+        }else{
+            (findViewById(R.id.txtMessage)).setVisibility(View.VISIBLE);
+        }
     }
 }

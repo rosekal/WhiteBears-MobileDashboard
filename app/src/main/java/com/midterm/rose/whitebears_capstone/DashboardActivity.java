@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements HttpCall.AsyncResponse{
     private final String ON_SCHEDULE = "On Schedule";
     private final String OVERDUE = "Overdue";
     private final String COMPLETED_ON_TIME = "Completed (On Time)";
@@ -19,6 +19,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private TaskListAdapter mAdapter;
+    private String userName;
 
     RadioGroup rg;
 
@@ -28,6 +29,10 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        HttpCall hc = new HttpCall();
+        hc.delegate = this;
+        userName = getIntent().getExtras().getString("username");
+        hc.execute("getTasks", userName);
 
         generateMultipleProjects();
         rg = findViewById(R.id.projectGroup);
@@ -211,5 +216,10 @@ public class DashboardActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    @Override
+    public void processFinish(String output) {
+
     }
 }
