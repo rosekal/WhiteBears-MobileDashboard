@@ -36,7 +36,7 @@ public class HttpCall extends AsyncTask<String, String, String> {
     public String RequestTasks(String userName) {
         try {
             URL url = new URL("http://whitebears.azurewebsites.net/Dashboard/LoadCompletedTasks");
-            String message = "{\"projectId\" : 1, \"username\" : \"Kalen\"}";
+            String message = "{\"projectId\" : \"_all\", \"username\" : \"" + userName + "\"}";
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");

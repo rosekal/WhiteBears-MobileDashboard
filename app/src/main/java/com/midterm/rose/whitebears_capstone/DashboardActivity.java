@@ -8,14 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DashboardActivity extends AppCompatActivity implements HttpCall.AsyncResponse{
-    private final String ON_SCHEDULE = "On Schedule";
-    private final String OVERDUE = "Overdue";
-    private final String COMPLETED_ON_TIME = "Completed (On Time)";
-    private final String COMPLETED_OVERDUE = "Completed (Overdue)";
+    private final String ON_SCHEDULE = "On Time";
+    private final String OVERDUE = "Overdue";;
 
     private RecyclerView mRecyclerView;
     private TaskListAdapter mAdapter;
@@ -31,52 +37,10 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
         setContentView(R.layout.activity_dashboard);
         HttpCall hc = new HttpCall();
         hc.delegate = this;
-        userName = getIntent().getExtras().getString("username");
+        userName = getIntent().getExtras().getString("userName");
         hc.execute("getTasks", userName);
-
-        generateMultipleProjects();
-        rg = findViewById(R.id.projectGroup);
-
-        PieChartHelper.pieChartView = findViewById(R.id.chart);
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
-        ArrayList<Task> allTasks = new ArrayList<>();
-
-        RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 5, 50, 5);
-
-        RadioButton rb = new RadioButton(this);
-        rb.setText("All");
-        rb.setLayoutParams(params);
-        rg.addView(rb);
-
-        for(Project p : allProjects) {
-            rb = new RadioButton(this);
-            rb.setText(p.getTitle());
-
-            rb.setLayoutParams(params);
-            rg.addView(rb);
-
-            rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-            {
-                public void onCheckedChanged(RadioGroup group, int checkedId){
-                    RadioButton checkedRadioButton = group.findViewById(checkedId);
-                    if (checkedRadioButton.isChecked()){
-                        updateProject(checkedRadioButton.getText()+"");
-                    }
-                }
-            });
-
-            for (Task t : p.getTasks())
-                allTasks.add(t);
-        }
-
-        updateProject("All");
-
-        ((RadioButton) rg.getChildAt(0)).setChecked(true);
     }
-
+/*
     private void generateMultipleProjects(){
         Project p = new Project();
 
@@ -154,7 +118,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
         t2.addUser(new User("User", "2"));
         t2.addUser(new User("Scott", "Mcjagger"));
 
-        t3 = new Task(2, 2, 2, "High", "Task3", "Desc3", COMPLETED_ON_TIME, "WhiteBears", new Date(), new Date(), new Date());
+        t3 = new Task(2, 2, 2, "High", "Task3", "Desc3", , "WhiteBears", new Date(), new Date(), new Date());
         t3.addUser(new User("Johnny", "Dagger"));
         t3.addUser(new User("Sega", "Saturn"));
         t3.addUser(new User("Sega", "Dreams"));
@@ -166,6 +130,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
 
         allProjects.add(p3);
     }
+    */
 
 
     int completedOnTime, completedOverdue, overdue, onSchedule;
@@ -202,17 +167,21 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
     public void incrementStatusCounters(ArrayList<Task> tasks){
         for(Task task : tasks){
             switch(task.getStatus()){
-                case COMPLETED_ON_TIME:
-                    completedOnTime++;
-                    break;
-                case COMPLETED_OVERDUE:
-                    completedOverdue++;
-                    break;
                 case OVERDUE:
-                    overdue++;
+                    if(task.isCompleted()){
+                        completedOverdue++;
+                    }
+                    else {
+                        overdue++;
+                    }
                     break;
                 case ON_SCHEDULE:
-                    onSchedule++;
+                    if(task.isCompleted()){
+                        completedOnTime++;
+                    }
+                    else {
+                        onSchedule++;
+                    }
                     break;
             }
         }
@@ -220,6 +189,100 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
 
     @Override
     public void processFinish(String output) {
+        ArrayList<Task> alltasks = new ArrayList<>();
+        try {
+            JSONArray obj = new JSONArray(output);
+            Gson gson = new Gson();
+            for(int i = 0; i < obj.length(); i++){
+                JSONObject task = obj.getJSONObject(i);
+                SimpleDateFormat myDate= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                myDate.setTimeZone(TimeZone.getTimeZone("America/Toronto"));
+                if(Long.parseLong(task.get("CompletedDate").toString().replaceAll("\\D+","")) != 62135596800000L){
+                    task.put("CompletedDate", myDate.format(new Date(Long.parseLong(task.get("CompletedDate").toString().replaceAll("\\D+","")))));
+                }
+                else{
+                    task.remove("CompletedDate");
+                }
+                if(Long.parseLong(task.get("StartDate").toString().replaceAll("\\D+","")) != 62135596800000L){
+                    task.put("StartDate", myDate.format(new Date(Long.parseLong(task.get("StartDate").toString().replaceAll("\\D+","")))));
+                }
+                else{
+                    task.remove("StartDate");
+                }
+                if(Long.parseLong(task.get("DueDate").toString().replaceAll("\\D+","")) != 62135596800000L){
+                    task.put("DueDate", myDate.format(new Date(Long.parseLong(task.get("DueDate").toString().replaceAll("\\D+","")))));
+                }
+                else{
+                    task.remove("DueDate");
+                }
+                Task task1 = gson.fromJson(task.toString() , Task.class);
+                alltasks.add(task1);
+            }
 
+            //Get all projects
+            for(Task task : alltasks){
+                boolean found = false;
+                for(Project project : allProjects){
+
+                    if(task.getProjectName().equals(project.getTitle())){
+                        ArrayList<Task> pTasks =   project.getTasks();
+                        pTasks.add(task);
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found){
+                    Project project = new Project();
+                    project.setTitle(task.getProjectName());
+                    ArrayList<Task> pTask = new ArrayList<>();
+                    pTask.add(task);
+                    project.setTasks(pTask);
+                    allProjects.add(project);
+                }
+            }
+
+            rg = findViewById(R.id.projectGroup);
+
+            PieChartHelper.pieChartView = findViewById(R.id.chart);
+
+            mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+            ArrayList<Task> allTasks = new ArrayList<>();
+
+            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 5, 50, 5);
+
+            RadioButton rb = new RadioButton(this);
+            rb.setText("All");
+            rb.setLayoutParams(params);
+            rg.addView(rb);
+
+            for (Project p : allProjects) {
+                rb = new RadioButton(this);
+                rb.setText(p.getTitle());
+
+                rb.setLayoutParams(params);
+                rg.addView(rb);
+
+                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        RadioButton checkedRadioButton = group.findViewById(checkedId);
+                        if (checkedRadioButton.isChecked()) {
+                            updateProject(checkedRadioButton.getText() + "");
+                        }
+                    }
+                });
+
+                for (Task t : p.getTasks())
+                    allTasks.add(t);
+            }
+
+            updateProject("All");
+
+            ((RadioButton) rg.getChildAt(0)).setChecked(true);
+        }
+        catch (Exception e){
+            String ex = e.getMessage();
+        }
     }
 }

@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Project {
-    private int projectId;
+    private int ProjectId;
 
-    private String title, description, scopeStatement, scope;
+    private String Title, Description, scopeStatement, scope;
 
-    private Date startDate, dueDate, completionDate;
+    private Date StartDate, DueDate, CompletionDate;
 
     private ArrayList<Task> tasks;
 
     public Project(int projectId, String title, String description, String scopeStatement, String scope, Date startDate, Date dueDate, Date completionDate) {
-        this.projectId = projectId;
-        this.title = title;
-        this.description = description;
+        this.ProjectId = projectId;
+        this.Title = title;
+        this.Description = description;
         this.scopeStatement = scopeStatement;
         this.scope = scope;
-        this.startDate = startDate;
-        this.dueDate = dueDate;
-        this.completionDate = completionDate;
+        this.StartDate = startDate;
+        this.DueDate = dueDate;
+        this.CompletionDate = completionDate;
     }
 
     public Project() {
@@ -28,27 +28,27 @@ public class Project {
     }
 
     public int getProjectId() {
-        return projectId;
+        return ProjectId;
     }
 
     public void setProjectId(int projectId) {
-        this.projectId = projectId;
+        this.ProjectId = projectId;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
     }
 
     public String getScopeStatement() {
@@ -68,27 +68,27 @@ public class Project {
     }
 
     public Date getStartDate() {
-        return startDate;
+        return StartDate;
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.StartDate = startDate;
     }
 
     public Date getDueDate() {
-        return dueDate;
+        return DueDate;
     }
 
     public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+        this.DueDate = dueDate;
     }
 
     public Date getCompletionDate() {
-        return completionDate;
+        return CompletionDate;
     }
 
     public void setCompletionDate(Date completionDate) {
-        this.completionDate = completionDate;
+        this.CompletionDate = completionDate;
     }
 
     public ArrayList<Task> getTasks() {
@@ -102,6 +102,6 @@ public class Project {
     public boolean isOverdue(){
         Date today = new Date();
 
-        return today.getTime() > this.dueDate.getTime();
+        return today.getTime() > this.DueDate.getTime();
     }
 }

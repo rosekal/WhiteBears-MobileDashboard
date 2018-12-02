@@ -5,29 +5,31 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Task {
-    private int taskId, workload, projectId;
+    private int TaskId, workload, ProjectId;
 
-    private String priority, title, description, status, projectName;
+    private String Priority, Title, Description, Status, ProjectName;
 
-    private Date dueDate, startDate, completedDate;
+    private Date DueDate, StartDate, completedDate;
+
+    private boolean IsCompleted;
 
     private ArrayList<User> users = new ArrayList<>();
 
     public Task(int taskId, int workload, int projectId, String priority, String title, String description, String status, String projectName, Date dueDate, Date startDate, Date completedDate) {
-        this.taskId = taskId;
+        this.TaskId = taskId;
         this.workload = workload;
-        this.projectId = projectId;
-        this.priority = priority;
-        this.title = title;
-        this.description = description;
-        this.projectName = projectName;
-        this.dueDate = dueDate;
-        this.startDate = startDate;
+        this.ProjectId = projectId;
+        this.Priority = priority;
+        this.Title = title;
+        this.Description = description;
+        this.ProjectName = projectName;
+        this.DueDate = dueDate;
+        this.StartDate = startDate;
         this.completedDate = completedDate;
 
         Date today = new Date();
 
-        this.setStatus(status);
+        this.setStatus(Status);
         /*
         if(completedDate == null){
             if(today.getTime() > dueDate.getTime()){
@@ -53,11 +55,11 @@ public class Task {
     }
 
     public int getTaskId() {
-        return taskId;
+        return TaskId;
     }
 
     public void setTaskId(int taskId) {
-        this.taskId = taskId;
+        this.TaskId = taskId;
     }
 
     public int getWorkload() {
@@ -69,67 +71,67 @@ public class Task {
     }
 
     public int getProjectId() {
-        return projectId;
+        return ProjectId;
     }
 
     public void setProjectId(int projectId) {
-        this.projectId = projectId;
+        this.ProjectId = projectId;
     }
 
     public String getPriority() {
-        return priority;
+        return Priority;
     }
 
     public void setPriority(String priority) {
-        this.priority = priority;
+        this.Priority = priority;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
     }
 
     public String getStatus() {
-        return status;
+        return Status;
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.Status = status;
     }
 
     public String getProjectName() {
-        return projectName;
+        return ProjectName;
     }
 
     public void setProjectName(String projectName) {
-        this.projectName = projectName;
+        this.ProjectName = projectName;
     }
 
     public Date getDueDate() {
-        return dueDate;
+        return DueDate;
     }
 
     public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+        this.DueDate = dueDate;
     }
 
     public Date getStartDate() {
-        return startDate;
+        return StartDate;
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.StartDate = startDate;
     }
 
     public Date getCompletedDate() {
@@ -149,21 +151,38 @@ public class Task {
     }
 
     public String getFormattedDueDate(){
+        if(DueDate == null){
+            return null;
+        }
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        return df.format(dueDate);
+        return df.format(DueDate);
     }
 
     public String getFormattedStartDate(){
+        if(StartDate == null){
+            return null;
+        }
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        return df.format(startDate);
+        return df.format(StartDate);
     }
 
     public String getFormattedCompletedDate(){
+        if(completedDate == null){
+            return null;
+        }
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         return df.format(completedDate);
     }
 
     public void addUser(User user){
         this.users.add(user);
+    }
+
+    public boolean isCompleted() {
+        return IsCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        IsCompleted = completed;
     }
 }
