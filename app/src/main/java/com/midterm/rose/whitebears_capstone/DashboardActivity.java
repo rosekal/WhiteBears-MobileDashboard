@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 public class DashboardActivity extends AppCompatActivity implements HttpCall.AsyncResponse{
@@ -52,14 +53,20 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
         ArrayList<Task> allTasks = new ArrayList<>();
         if(projectName.equals("All")) {
             for (Project project : allProjects) {
-                allTasks.addAll(project.getTasks());
                 incrementStatusCounters(project.getTasks());
+
+
+                for(Task task : project.getTasks())
+                    allTasks.add(task);
             }
         }else {
             for (Project project : allProjects) {
                 if (project.getTitle().equals(projectName)) {
-                    allTasks.addAll(project.getTasks());
                     incrementStatusCounters(project.getTasks());
+
+                    for(Task task : project.getTasks())
+                        allTasks.add(task);
+
                     break;
                 }
             }
@@ -125,9 +132,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
                 }
                 Task task1 = gson.fromJson(task.toString() , Task.class);
 
-                if(!task1.isCompleted()){
-                    alltasks.add(task1);
-                }
+                alltasks.add(task1);
             }
 
             //Get all projects
@@ -156,7 +161,7 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
 
             PieChartHelper.pieChartView = findViewById(R.id.chart);
 
-            mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+            mRecyclerView = findViewById(R.id.my_recycler_view);
 
             ArrayList<Task> allTasks = new ArrayList<>();
 
