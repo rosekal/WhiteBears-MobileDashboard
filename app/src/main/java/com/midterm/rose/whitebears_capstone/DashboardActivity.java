@@ -20,8 +20,8 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class DashboardActivity extends AppCompatActivity implements HttpCall.AsyncResponse{
-    private final String ON_SCHEDULE = "On Time";
-    private final String OVERDUE = "Overdue";;
+    private final String ON_SCHEDULE = "On time";
+    private final String OVERDUE = "Overdue";
 
     private RecyclerView mRecyclerView;
     private TaskListAdapter mAdapter;
@@ -40,98 +40,6 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
         userName = getIntent().getExtras().getString("userName");
         hc.execute("getTasks", userName);
     }
-/*
-    private void generateMultipleProjects(){
-        Project p = new Project();
-
-        p.setTitle("Try Catch");
-
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        Task t1 = new Task(0, 0, 0, "High", "Task1", "Desc1", ON_SCHEDULE, "Try Catch", new Date(), new Date(), new Date());
-        t1.addUser(new User("Joe", "Bob"));
-
-
-        Task t2 = new Task(1, 1, 1, "Medium", "Task2", "Desc2", ON_SCHEDULE, "Try Catch", new Date(), new Date(), new Date());
-        t2.addUser(new User("Billy", "Bob"));
-
-        Task t3 = new Task(2, 2, 2, "High", "Task3", "Desc3", ON_SCHEDULE, "Try Catch", new Date(), new Date(), new Date());
-        t3.addUser(new User("Jatin", "Singh"));
-        t3.addUser(new User("Raf", "Sigwalt"));
-
-
-        Task t4 = new Task(3, 3, 3, "Medium", "Task3", "Desc3", COMPLETED_ON_TIME, "Try Catch", new Date(), new Date(), new Date());
-        t4.addUser(new User("Sup", "MahBrotha"));
-
-        Task t5 =new Task(4, 4, 4, "Medium", "Task4", "Desc4", COMPLETED_OVERDUE, "Try Catch", new Date(), new Date(), new Date());
-        t5.addUser(new User("Test", "User"));
-
-        tasks.add(t1);
-        tasks.add(t2);
-        tasks.add(t3);
-        tasks.add(t4);
-        tasks.add(t5);
-        p.setTasks(tasks);
-
-
-
-        allProjects.add(p);
-
-
-
-        Project p2 = new Project();
-
-        p2.setTitle("SEEGAAAAAA");
-
-        tasks = new ArrayList<>();
-
-        t1 = new Task(0, 0, 0, "High", "Task1", "Desc1", ON_SCHEDULE, "SEEGAAAAAA", new Date(), new Date(), new Date());
-        t1.addUser(new User("EA", "Sports"));
-
-
-        t2 = new Task(1, 1, 1, "Medium", "Task2", "Desc2", OVERDUE, "SEEGAAAAAA", new Date(), new Date(), new Date());
-        t2.addUser(new User("Intel", "99"));
-
-        t3 = new Task(2, 2, 2, "High", "Task3", "Desc3", COMPLETED_OVERDUE, "SEEGAAAAAA", new Date(), new Date(), new Date());
-        t3.addUser(new User("Johnny", "Dagger"));
-        t3.addUser(new User("Lion", "Tiger"));
-
-        tasks.add(t1);
-        tasks.add(t2);
-        tasks.add(t3);
-        p2.setTasks(tasks);
-
-        allProjects.add(p2);
-
-
-        Project p3 = new Project();
-
-        p3.setTitle("WhiteBears");
-
-        tasks = new ArrayList<>();
-
-        t1 = new Task(0, 0, 0, "High", "Task1", "Desc1", OVERDUE, "WhiteBears", new Date(), new Date(), new Date());
-        t1.addUser(new User("Love", "war"));
-
-
-        t2 = new Task(1, 1, 1, "Medium", "Task2", "Desc2", OVERDUE, "WhiteBears", new Date(), new Date(), new Date());
-        t2.addUser(new User("User", "2"));
-        t2.addUser(new User("Scott", "Mcjagger"));
-
-        t3 = new Task(2, 2, 2, "High", "Task3", "Desc3", , "WhiteBears", new Date(), new Date(), new Date());
-        t3.addUser(new User("Johnny", "Dagger"));
-        t3.addUser(new User("Sega", "Saturn"));
-        t3.addUser(new User("Sega", "Dreams"));
-
-        tasks.add(t1);
-        tasks.add(t2);
-        tasks.add(t3);
-        p3.setTasks(tasks);
-
-        allProjects.add(p3);
-    }
-    */
-
 
     int completedOnTime, completedOverdue, overdue, onSchedule;
 
