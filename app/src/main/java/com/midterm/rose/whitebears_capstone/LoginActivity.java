@@ -21,19 +21,13 @@ public class LoginActivity extends AppCompatActivity implements HttpCall.AsyncRe
     }
 
     public void onLogin(View view){
+        (findViewById(R.id.txtMessage)).setVisibility(View.INVISIBLE);
         username = ((EditText) findViewById(R.id.edtxtUsername)).getText().toString();
         password = ((EditText) findViewById(R.id.edtxtPassword)).getText().toString();
         HttpCall hc = new HttpCall();
         hc.delegate = this;
         hc.execute("Login", username, password);
 
-    }
-
-    private boolean verifyLogin(String username, String password) {
-        if(username.isEmpty() || password.isEmpty())
-            return false;
-
-        return true;
     }
 
     @Override
