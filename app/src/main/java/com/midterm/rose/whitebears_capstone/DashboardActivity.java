@@ -124,7 +124,10 @@ public class DashboardActivity extends AppCompatActivity implements HttpCall.Asy
                     task.remove("DueDate");
                 }
                 Task task1 = gson.fromJson(task.toString() , Task.class);
-                alltasks.add(task1);
+
+                if(!task1.isCompleted()){
+                    alltasks.add(task1);
+                }
             }
 
             //Get all projects
